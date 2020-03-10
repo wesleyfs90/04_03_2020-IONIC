@@ -1,6 +1,7 @@
 import { ArtigoService } from './../artigo.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Artigo } from 'src/app/Model/artigo';
 
 @Component({
   selector: 'app-artigo-detalhe',
@@ -12,9 +13,13 @@ export class ArtigoDetalhePage implements OnInit {
 
   constructor(private serviceArtigo: ArtigoService,
               private activatedRoute: ActivatedRoute,
-              private route: Router) { }
+              ) { }
 
   ngOnInit() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id){
+      this.artigo = this.serviceArtigo.getById(parseInt(id));
+    }
   }
 
 }
